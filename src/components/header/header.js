@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Navbar from "./navbar/navbar";
-import {UserConsumer} from "../provider/user-provider";
-import withUser from "../hooks/withUser";
+import {connect} from "react-redux"
+import {actionLogin} from "../reduce/user-reduce";
 
 class Header extends Component {
     render() {
@@ -47,9 +47,13 @@ const mapStateToProps = ({user}) => {
     return {user}
 }
 
-const mapActionsToProps = ({login}) => {
-    return {login}
+const mapActionsToProps = ({dispatch}) => {
+    return {
+        login: () => {
+            dispatch(actionLogin({id:1, username:"asanali"}))
+        }
+    }
 }
 
 
-export default withUser(mapStateToProps, mapActionsToProps)(Header);
+export default connect(mapStateToProps, mapActionsToProps)(Header);
